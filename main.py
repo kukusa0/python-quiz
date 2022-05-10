@@ -25,21 +25,15 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS news
                 description VARCHAR (500),
                 image VARCHAR (500),
                 language VARCHAR (100),
-                country VARCHAR (100)''')
+                country VARCHAR (100));''')
 
 #
 
 db_data = []
 
 for i in data:
-    info = {
-        "author": i["data"],
-        "title": i["title"],
-        "description": i["description"],
-        "image": i["image"],
-        "language": i["language"],
-        "country": i["country"]
-    }
+    info = (i["author"], i["title"], i["description"], i["image"], i["language"], i["country"])
+    db_data.append(info)
 
 query = "INSERT INTO news (author, title, description, image, language, country) VALUES (?, ?, ?, ?, ?, ?)"
 cursor.executemany(query, db_data)
